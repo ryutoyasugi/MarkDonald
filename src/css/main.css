@@ -12,8 +12,8 @@ body {
 }
 
 #input_area {
-  padding: 34px 0 20px 0;
   height: 100%;
+  padding-bottom: 20px;
 }
 
 #input_txt {
@@ -21,14 +21,29 @@ body {
   height: 100%;
 }
 
-#header_fixed {
-  position: fixed;
-  height: 34px;
-  width: 100%;
+#input_md {
+  float: left;
+  width: 50%;
+  height: 100%;
+}
+
+#preview_area {
+  float: left;
+  padding: 0 15px 0 15px;
+  width: 50%;
+  height: 100%;
+  background-color: #DCDCDC;
+  word-wrap: break-word;
+  overflow: scroll;
+}
+
+#preview_area ul, ol {
+  padding-left: 15px;
 }
 
 #footer_fixed {
   position: fixed;
+  padding-left: 5px;
   height: 20px;
   width: 100%;
   bottom: 0;

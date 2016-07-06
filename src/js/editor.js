@@ -1,3 +1,6 @@
+var $ = require('jquery');
+var marked = require('marked');
+var Vue = require('vue');
 var fs = require('fs');
 var remote = require('electron').remote;
 var dialog = remote.dialog;
@@ -9,11 +12,20 @@ var currentPath = "";
 var editor = null;
 var extensions = ['txt', 'html', 'js', 'md'];
 
+var viewModel = new Vue({
+  el: '#input_area',
+  data: {
+    input: ''
+  },
+  filters: {
+    marked: marked
+  }
+});
+
 function onLoad() {
-  // 入力関連領域
-  inputArea = document.getElementById("input_area");
-  // フッター領域
-  footerArea = document.getElementById("footer_fixed");
+
+  inputArea = $('#input_area');
+  footerArea = $('#footer_fixed');
 
   editor = settingEditor();
 
@@ -38,7 +50,7 @@ function onLoad() {
 }
 
 function settingEditor() {
-  editor = ace.edit("input_txt");
+  editor = ace.edit("input_md");
   editor.getSession().setMode("ace/mode/markdown");
   editor.setTheme("ace/theme/twilight");
   editor.getSession().setTabSize(2);
@@ -74,6 +86,9 @@ function settingEditor() {
       return false;
     }
   });
+  editor.getSession().on('change', function() {
+    viewModel.input = editor.getValue();
+  });
   return editor;
 }
 
@@ -103,33 +118,17 @@ function readFile(path) {
       alert('error : ' + error);
       return;
     }
-    footerArea.innerHTML = path;
+    footerArea.text(path);
     editor.setValue(text.toString(), -1);
   });
 }
 
 function saveFile() {
-  // 初期入力エリアに設定されたテキストを保存しようとしたときは新規ファイルを作成
   if (currentPath === "") {
     saveNewFile();
-    return;
+  } else {
+    writeFile(currentPath, editor.getValue());
   }
-  var win = browserWindow.getFocusedWindow();
-  dialog.showMessageBox(win, {
-      title: 'ファイルの上書き保存を行います。',
-      type: 'info',
-      buttons: ['OK', 'Cancel'],
-      detail: '本当に保存しますか？'
-    },
-    // メッセージボックスが閉じられた後のコールバック関数
-    function(respnse) {
-      // OKボタン(ボタン配列の0番目がOK)
-      if (respnse === 0) {
-        var data = editor.getValue();
-        writeFile(currentPath, data);
-      }
-    }
-  );
 }
 
 function writeFile(path, data) {
@@ -165,6 +164,6 @@ function saveNewFile() {
 }
 
 function closeFile() {
-    footerArea.innerHTML = null;
+    footerArea.text(null);
     editor.setValue(null);
 }
