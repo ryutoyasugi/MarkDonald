@@ -4,17 +4,13 @@ var dialog = remote.dialog;
 var browserWindow = remote.BrowserWindow;
 
 var inputArea = null;
-var inputTxt = null;
 var footerArea = null;
-
 var currentPath = "";
 var editor = null;
 
 function onLoad() {
   // 入力関連領域
   inputArea = document.getElementById("input_area");
-  // 入力領域
-  inputTxt = document.getElementById("input_txt");
   // フッター領域
   footerArea = document.getElementById("footer_fixed");
 
