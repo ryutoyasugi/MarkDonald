@@ -7,6 +7,7 @@ var inputArea = null;
 var footerArea = null;
 var currentPath = "";
 var editor = null;
+var extensions = ['txt', 'html', 'js', 'md'];
 
 function onLoad() {
   // 入力関連領域
@@ -14,9 +15,7 @@ function onLoad() {
   // フッター領域
   footerArea = document.getElementById("footer_fixed");
 
-  editor = ace.edit("input_txt");
-  editor.getSession().setMode("ace/mode/javascript");
-  editor.setTheme("ace/theme/twilight");
+  editor = settingEditor();
 
   // documentにドラッグ&ドロップされた場合
   document.ondragover = document.ondrop = function(e) {
@@ -38,6 +37,25 @@ function onLoad() {
   };
 }
 
+function settingEditor() {
+  editor = ace.edit("input_txt");
+  editor.getSession().setMode("ace/mode/markdown");
+  editor.setTheme("ace/theme/twilight");
+  editor.getSession().setTabSize(2);
+  editor.getSession().setUseWrapMode(true);
+  editor.commands.addCommand({
+    name: 'savefile',
+    bindKey: {
+      win: 'Ctrl-S',
+      mac: 'Command-S'
+    },
+    exec: function() {
+      saveFile();
+    }
+  });
+  return editor;
+}
+
 function openLoadFile() {
   var win = browserWindow.getFocusedWindow();
 
@@ -48,7 +66,7 @@ function openLoadFile() {
       properties: ['openFile'],
       filters: [{
         name: 'Documents',
-        extensions: ['txt', 'text', 'html', 'js']
+        extensions: extensions
       }]
     },
     // [ファイル選択]ダイアログが閉じられた後のコールバック関数
@@ -113,7 +131,7 @@ function saveNewFile() {
       properties: ['openFile'],
       filters: [{
         name: 'Documents',
-        extensions: ['txt', 'text', 'html', 'js']
+        extensions: extensions
       }]
     },
     // セーブ用ダイアログが閉じられた後のコールバック関数
