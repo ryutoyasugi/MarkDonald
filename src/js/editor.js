@@ -53,6 +53,27 @@ function settingEditor() {
       saveFile();
     }
   });
+  editor.commands.addCommand({
+    name: 'openfile',
+    bindKey: {
+      win: 'Ctrl-O',
+      mac: 'Command-O'
+    },
+    exec: function() {
+      openLoadFile();
+    }
+  });
+  editor.commands.addCommand({
+    name: 'closefile',
+    bindKey: {
+      win: 'Ctrl-W',
+      mac: 'Ctrl-W'
+    },
+    exec: function() {
+      closeFile();
+      return false;
+    }
+  });
   return editor;
 }
 
@@ -82,9 +103,7 @@ function readFile(path) {
       alert('error : ' + error);
       return;
     }
-    // フッター部分に読み込み先のパスを設定
     footerArea.innerHTML = path;
-    // テキスト入力エリアに設定
     editor.setValue(text.toString(), -1);
   });
 }
@@ -143,4 +162,9 @@ function saveNewFile() {
       }
     }
   );
+}
+
+function closeFile() {
+    footerArea.innerHTML = null;
+    editor.setValue(null);
 }
