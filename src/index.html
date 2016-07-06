@@ -3,8 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <title>MarkDonalds</title>
+  <link href="css/vendor/boostrap/bootstrap.min.css" rel="stylesheet">
+  <link href="css/main.css" rel="stylesheet">
+  <script src="js/vendor/ace/ace.js"></script>
+  <script src="js/vendor/ace/mode-javascript.js"></script>
+  <script src="js/vendor/ace/theme-twilight.js"></script>
+  <script src="js/editor.js"></script>
 </head>
-<body>
-  <h1>Hello MarkDonalds!</h1>
+<body onload="onLoad()">
+  <div id="header_fixed">
+    <button type="button" class="btn-sm btn-primary" onclick="openLoadFile()">read</button>
+    <button type="button" class="btn-sm btn-primary" onclick="saveFile()">save</button>
+  </div>
+  <div id="footer_fixed"></div>
+  <div id="input_area">
+    <div id="input_txt"></div>
+  </div>
 </body>
 </html>
