@@ -1,0 +1,28 @@
+{
+  "name": "MarkDonalds",
+  "version": "1.0.0",
+  "description": "simple markdown editor",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ryutoyasugi/MarkDonalds.git"
+  },
+  "keywords": [
+    "markdown",
+    "editor",
+    "electron"
+  ],
+  "author": "ryutoyasugi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ryutoyasugi/MarkDonalds/issues"
+  },
+  "homepage": "https://github.com/ryutoyasugi/MarkDonalds#readme",
+  "devDependencies": {
+    "electron-prebuilt": "^1.2.4"
+  }
+}
