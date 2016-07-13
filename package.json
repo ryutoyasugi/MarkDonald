@@ -1,5 +1,5 @@
 {
-  "name": "MarkDonalds",
+  "name": "MarkDonald",
   "version": "1.0.0",
   "description": "simple markdown editor",
   "main": "main.js",
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ryutoyasugi/MarkDonalds.git"
+    "url": "git+https://github.com/ryutoyasugi/MarkDonald.git"
   },
   "keywords": [
     "markdown",
@@ -19,9 +19,9 @@
   "author": "ryutoyasugi",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ryutoyasugi/MarkDonalds/issues"
+    "url": "https://github.com/ryutoyasugi/MarkDonald/issues"
   },
-  "homepage": "https://github.com/ryutoyasugi/MarkDonalds#readme",
+  "homepage": "https://github.com/ryutoyasugi/MarkDonald#readme",
   "devDependencies": {
     "electron-connect": "^0.4.2",
     "electron-packager": "^7.2.0",

@@ -1,3 +1,3 @@
-# MarkDonalds
+# MarkDonald
 
 simple markdown editor
