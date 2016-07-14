@@ -164,6 +164,6 @@ function saveNewFile() {
 }
 
 function closeFile() {
-    footerArea.text(null);
-    editor.setValue(null);
+  footerArea.text(null);
+  editor.setValue(null);
 }
