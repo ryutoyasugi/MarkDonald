@@ -12,6 +12,7 @@ var currentPath = "";
 var editor      = null;
 var extensions  = ['txt', 'html', 'js', 'md'];
 
+// using markdown preview
 var viewModel = new Vue({
   el: '#input_area',
   data: {
@@ -27,6 +28,7 @@ function onLoad() {
   inputArea  = $('#input_area');
   footerArea = $('#footer');
 
+  // Initialize editor
   editor = settingEditor();
 
   // documentにドラッグ&ドロップされた場合
