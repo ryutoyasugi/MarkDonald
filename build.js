@@ -6,7 +6,7 @@ packager({
   out          : 'dist',
   name         : config.name,
   'app-version': config.version,
-  platform     : 'darwin',
+  platform     : 'darwin', // or win
   arch         : 'x64',
   icon         : './MarkDonald.icns',
   version      : '1.2.6', // electron version

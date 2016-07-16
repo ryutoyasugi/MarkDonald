@@ -5,10 +5,10 @@
 
 html,
 body {
-  width: 100%;
-  height: 100%;
   background-color: #1e1e1e;
   overflow: hidden;
+  height: 100%;
+  width: 100%;
 }
 
 #input_area {
@@ -17,24 +17,24 @@ body {
 }
 
 #input_txt {
-  width: 100%;
   height: 100%;
+  width: 100%;
 }
 
 #input_md {
   float: left;
-  width: 50%;
   height: 100%;
+  width: 50%;
 }
 
 #preview_area {
-  float: left;
-  padding: 0 15px 0 15px;
-  width: 50%;
-  height: 100%;
   background-color: #DCDCDC;
-  word-wrap: break-word;
+  float: left;
   overflow: scroll;
+  padding: 0 15px 0 15px;
+  height: 100%;
+  width: 50%;
+  word-wrap: break-word;
 }
 
 #preview_area ul, ol {
@@ -42,12 +42,13 @@ body {
 }
 
 #footer_fixed {
-  position: fixed;
+  background-color: #B3B3B3;
+  bottom: 0;
+  color: #12ad00;
+  font-size: 10;
+  font-weight: bold;
   padding-left: 5px;
+  position: fixed;
   height: 20px;
   width: 100%;
-  bottom: 0;
-  background-color: #337ab7;
-  color: #eeeeee;
-  font-size: 10;
 }
