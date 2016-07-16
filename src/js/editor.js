@@ -1,16 +1,16 @@
 var $ = require('jquery');
-var marked = require('marked');
-var Vue = require('vue');
-var fs = require('fs');
-var remote = require('electron').remote;
-var dialog = remote.dialog;
+var marked        = require('marked');
+var Vue           = require('vue');
+var fs            = require('fs');
+var remote        = require('electron').remote;
+var dialog        = remote.dialog;
 var browserWindow = remote.BrowserWindow;
 
-var inputArea = null;
-var footerArea = null;
+var inputArea   = null;
+var footerArea  = null;
 var currentPath = "";
-var editor = null;
-var extensions = ['txt', 'html', 'js', 'md'];
+var editor      = null;
+var extensions  = ['txt', 'html', 'js', 'md'];
 
 var viewModel = new Vue({
   el: '#input_area',
@@ -24,8 +24,8 @@ var viewModel = new Vue({
 
 function onLoad() {
 
-  inputArea = $('#input_area');
-  footerArea = $('#footer_fixed');
+  inputArea  = $('#input_area');
+  footerArea = $('#footer');
 
   editor = settingEditor();
 
@@ -34,7 +34,6 @@ function onLoad() {
     e.preventDefault(); // イベントの伝搬を止めて、アプリケーションのHTMLとファイルが差し替わらないようにする
     return false;
   };
-
   inputArea.ondragover = function() {
     return false;
   };
@@ -97,7 +96,6 @@ function openLoadFile() {
 
   dialog.showOpenDialog(
     win,
-    // どんなダイアログを出すかを指定するプロパティ
     {
       properties: ['openFile'],
       filters: [{
@@ -144,7 +142,6 @@ function saveNewFile() {
   var win = browserWindow.getFocusedWindow();
   dialog.showSaveDialog(
     win,
-    // どんなダイアログを出すかを指定するプロパティ
     {
       properties: ['openFile'],
       filters: [{
