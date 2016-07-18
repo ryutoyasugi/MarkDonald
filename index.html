@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>MarkDonald</title>
+  <link href="src/css/vendor/boostrap/bootstrap.min.css" rel="stylesheet">
+  <link href="src/css/main.css" rel="stylesheet">
+</head>
+<body onload="onLoad()">
+  <div id="input_area">
+    <div id="input_txt" class="w50"></div>
+    <div id="preview_area"><span v-html="input | marked"></span></div>
+  </div>
+  <div id="footer">
+    <span id="footer_file_path"></span>
+    <span id="unsaved_icon">*</span>
+  </div>
+
+  <script src="src/js/vendor/ace/ace.js"></script>
+  <script src="src/js/vendor/ace/mode/mode-markdown.js"></script>
+  <script src="src/js/vendor/ace/theme/theme-twilight.js"></script>
+  <script src="src/js/editor.js"></script>
+  <script src="src/js/vendor/ace/mode/mode-javascript.js"></script>
+
+  <!-- for livereload -->
+  <script>require('electron-connect').client.create();</script>
+
+</body>
+</html>
