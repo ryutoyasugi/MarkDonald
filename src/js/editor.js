@@ -58,7 +58,7 @@ function onLoad() {
 
 // Initialize editor
 function settingEditor() {
-  _editor = ace.edit("input_md");
+  _editor = ace.edit("input_txt");
   _editor.getSession().setMode("ace/mode/markdown");
   _editor.setTheme("ace/theme/twilight");
   _editor.getSession().setTabSize(2);
@@ -91,6 +91,16 @@ function settingEditor() {
     },
     exec: function() {
       closeFile();
+    }
+  });
+  _editor.commands.addCommand({
+    name: 'togglePreviewArea',
+    bindKey: {
+      win: 'Ctrl-Shift-M',
+      mac: 'Command-Shift-M'
+    },
+    exec: function() {
+      $('#input_txt').toggleClass("w50");
     }
   });
   _editor.getSession().on('change', function() {

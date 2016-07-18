@@ -17,14 +17,13 @@ body {
 }
 
 #input_txt {
+  float: left;
   height: 100%;
   width: 100%;
 }
 
-#input_md {
-  float: left;
-  height: 100%;
-  width: 50%;
+.w50 {
+  width: 50% !important;
 }
 
 #preview_area {
