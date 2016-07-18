@@ -52,3 +52,7 @@ body {
   height: 20px;
   width: 100%;
 }
+
+#unsaved_icon {
+  display: none;
+}

@@ -11,7 +11,10 @@
     <div id="input_md"></div>
     <div id="preview_area"><span v-html="input | marked"></span></div>
   </div>
-  <div id="footer"></div>
+  <div id="footer">
+    <span id="footer_file_path"></span>
+    <span id="unsaved_icon">*</span>
+  </div>
 
   <script src="src/js/vendor/ace/ace.js"></script>
   <script src="src/js/vendor/ace/mode/mode-markdown.js"></script>

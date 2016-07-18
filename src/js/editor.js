@@ -6,12 +6,13 @@ var remote        = require('electron').remote;
 var dialog        = remote.dialog;
 var browserWindow = remote.BrowserWindow;
 
-var inputArea   = null;
-var footerArea  = null;
-var filePath    = "";
-var editor      = null;
-var extensions  = ['txt', 'html', 'js', 'md'];
-var saved_text  = '';
+var _$inputArea       = null;
+var _$footerFilePath  = null;
+var _$unsavedIcon     = null;
+var _editor           = null;
+var _filePath         = '';
+var _savedText        = '';
+var _EXTENSIONS       = ['txt', 'html', 'js', 'md'];
 
 // using markdown preview
 var viewModel = new Vue({
@@ -29,24 +30,25 @@ var viewModel = new Vue({
  */
 function onLoad() {
 
-  inputArea  = $('#input_area');
-  footerArea = $('#footer');
+  _$inputArea  = $('#input_area');
+  _$footerFilePath = $('#footer_file_path');
+  _$unsavedIcon = $('#unsaved_icon');
 
   // Initialize editor
-  editor = settingEditor();
+  _editor = settingEditor();
 
   // documentにドラッグ&ドロップされた場合
   document.ondragover = document.ondrop = function(e) {
     e.preventDefault(); // イベントの伝搬を止めて、アプリケーションのHTMLとファイルが差し替わらないようにする
     return false;
   };
-  inputArea.ondragover = function() {
+  _$inputArea.ondragover = function() {
     return false;
   };
-  inputArea.ondragleave = inputArea.ondragend = function() {
+  _$inputArea.ondragleave = _$inputArea.ondragend = function() {
     return false;
   };
-  inputArea.ondrop = function(e) {
+  _$inputArea.ondrop = function(e) {
     e.preventDefault();
     var file = e.dataTransfer.files[0];
     readFile(file.path);
@@ -56,12 +58,12 @@ function onLoad() {
 
 // Initialize editor
 function settingEditor() {
-  editor = ace.edit("input_md");
-  editor.getSession().setMode("ace/mode/markdown");
-  editor.setTheme("ace/theme/twilight");
-  editor.getSession().setTabSize(2);
-  editor.getSession().setUseWrapMode(true);
-  editor.commands.addCommand({
+  _editor = ace.edit("input_md");
+  _editor.getSession().setMode("ace/mode/markdown");
+  _editor.setTheme("ace/theme/twilight");
+  _editor.getSession().setTabSize(2);
+  _editor.getSession().setUseWrapMode(true);
+  _editor.commands.addCommand({
     name: 'savefile',
     bindKey: {
       win: 'Ctrl-S',
@@ -71,7 +73,7 @@ function settingEditor() {
       saveFile();
     }
   });
-  editor.commands.addCommand({
+  _editor.commands.addCommand({
     name: 'openfile',
     bindKey: {
       win: 'Ctrl-O',
@@ -81,7 +83,7 @@ function settingEditor() {
       openFile();
     }
   });
-  editor.commands.addCommand({
+  _editor.commands.addCommand({
     name: 'closefile',
     bindKey: {
       win: 'Ctrl-W',
@@ -91,17 +93,18 @@ function settingEditor() {
       closeFile();
     }
   });
-  editor.getSession().on('change', function() {
-    viewModel.input = editor.getValue();
+  _editor.getSession().on('change', function() {
+    viewModel.input = _editor.getValue();
+    checkUnsavedStat();
   });
-  return editor;
+  return _editor;
 }
 
 /**
  * open file
  */
 function openFile() {
-  if (editor.getValue() !== saved_text) {
+  if (_editor.getValue() !== _savedText) {
     if (confirm('変更が保存されていません。\n保存しますか？')) {
       saveFile();
       if (!confirm('ファイルを保存しました。\n新しいファイルを開きますか？')) {
@@ -120,7 +123,7 @@ function openFile() {
       properties: ['openFile'],
       filters: [{
         name: 'Documents',
-        extensions: extensions
+        extensions: _EXTENSIONS
       }]
     },
     // [ファイル選択]ダイアログが閉じられた後のコールバック関数
@@ -133,15 +136,16 @@ function openFile() {
  * @param {string} path
  */
 function readFile(path) {
-  filePath = path;
+  _filePath = path;
   fs.readFile(path, function(error, text) {
     if (error !== null) {
       alert('error : ' + error);
       return;
     }
-    footerArea.text(path);
-    editor.setValue(text.toString(), -1);
-    saved_text = editor.getValue();
+    _$footerFilePath.text(path);
+    _editor.setValue(text.toString(), -1);
+    _savedText = _editor.getValue();
+    checkUnsavedStat();
   });
 }
 
@@ -149,25 +153,26 @@ function readFile(path) {
  * save file
  */
 function saveFile() {
-  if (filePath === '') {
+  if (_filePath === '') {
     saveNewFile();
   } else {
-    writeFile(filePath, editor.getValue());
+    writeFile(_filePath, _editor.getValue());
   }
 }
 /**
  * write file
- * @param {string} filePath
+ * @param {string} path
  * @param {string} text
  */
-function writeFile(filePath, text) {
-  fs.writeFile(filePath, text, function(error) {
+function writeFile(path, text) {
+  fs.writeFile(path, text, function(error) {
     if (error !== null) {
       alert('error : ' + error);
       return;
     }
   });
-  saved_text = editor.getValue();
+  _savedText = _editor.getValue();
+  checkUnsavedStat();
 }
 /**
  * save new file
@@ -180,25 +185,36 @@ function saveNewFile() {
       properties: ['openFile'],
       filters: [{
         name: 'Documents',
-        extensions: extensions
+        extensions: _EXTENSIONS
       }]
     },
     // セーブ用ダイアログが閉じられた後のコールバック関数
     function(fileName) {
       if (fileName) {
-        var text = editor.getValue();
-        filePath = fileName;
-        writeFile(filePath, text);
+        var text = _editor.getValue();
+        _filePath = fileName;
+        writeFile(_filePath, text);
       }
     }
   );
 }
 
 /**
+ * check unsaved file status
+ */
+function checkUnsavedStat() {
+  if (_editor.getValue() !== _savedText) {
+    _$unsavedIcon.css('display', 'inline');
+  } else {
+    _$unsavedIcon.css('display', 'none');
+  }
+}
+
+/**
  * close file
  */
 function closeFile() {
-  if (editor.getValue() !== saved_text) {
+  if (_editor.getValue() !== _savedText) {
     if (confirm('変更が保存されていません。\n保存しますか？')) {
       saveFile();
     } else {
@@ -215,8 +231,8 @@ function closeFile() {
  * init file info
  */
 function initFileInfo() {
-  filePath   = '';
-  saved_text = '';
-  editor.setValue('');
-  footerArea.text('');
+  _filePath   = '';
+  _savedText = '';
+  _editor.setValue('');
+  _$footerFilePath.text('');
 }
