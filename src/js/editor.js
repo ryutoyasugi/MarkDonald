@@ -1,4 +1,4 @@
-var $ = require('jquery');
+var $             = require('jquery');
 var marked        = require('marked');
 var Vue           = require('vue');
 var fs            = require('fs');
@@ -8,9 +8,10 @@ var browserWindow = remote.BrowserWindow;
 
 var inputArea   = null;
 var footerArea  = null;
-var currentPath = "";
+var filePath    = "";
 var editor      = null;
 var extensions  = ['txt', 'html', 'js', 'md'];
+var saved_text  = '';
 
 // using markdown preview
 var viewModel = new Vue({
@@ -23,6 +24,9 @@ var viewModel = new Vue({
   }
 });
 
+/**
+ * onLoad
+ */
 function onLoad() {
 
   inputArea  = $('#input_area');
@@ -50,6 +54,7 @@ function onLoad() {
   };
 }
 
+// Initialize editor
 function settingEditor() {
   editor = ace.edit("input_md");
   editor.getSession().setMode("ace/mode/markdown");
@@ -73,7 +78,7 @@ function settingEditor() {
       mac: 'Command-O'
     },
     exec: function() {
-      openLoadFile();
+      openFile();
     }
   });
   editor.commands.addCommand({
@@ -84,7 +89,6 @@ function settingEditor() {
     },
     exec: function() {
       closeFile();
-      return false;
     }
   });
   editor.getSession().on('change', function() {
@@ -93,9 +97,23 @@ function settingEditor() {
   return editor;
 }
 
-function openLoadFile() {
+/**
+ * open file
+ */
+function openFile() {
+  if (editor.getValue() !== saved_text) {
+    if (confirm('変更が保存されていません。\n保存しますか？')) {
+      saveFile();
+      if (!confirm('ファイルを保存しました。\n新しいファイルを開きますか？')) {
+        return;
+      }
+    } else {
+      if (!confirm('変更を保存せずに新しいファイルを開きますか？')) {
+        return;
+      }
+    }
+  }
   var win = browserWindow.getFocusedWindow();
-
   dialog.showOpenDialog(
     win,
     {
@@ -110,9 +128,12 @@ function openLoadFile() {
       if (filenames) readFile(filenames[0]);
     });
 }
-
+/**
+ * read file
+ * @param {string} path
+ */
 function readFile(path) {
-  currentPath = path;
+  filePath = path;
   fs.readFile(path, function(error, text) {
     if (error !== null) {
       alert('error : ' + error);
@@ -120,26 +141,37 @@ function readFile(path) {
     }
     footerArea.text(path);
     editor.setValue(text.toString(), -1);
+    saved_text = editor.getValue();
   });
 }
 
+/**
+ * save file
+ */
 function saveFile() {
-  if (currentPath === "") {
+  if (filePath === '') {
     saveNewFile();
   } else {
-    writeFile(currentPath, editor.getValue());
+    writeFile(filePath, editor.getValue());
   }
 }
-
-function writeFile(path, data) {
-  fs.writeFile(path, data, function(error) {
+/**
+ * write file
+ * @param {string} filePath
+ * @param {string} text
+ */
+function writeFile(filePath, text) {
+  fs.writeFile(filePath, text, function(error) {
     if (error !== null) {
       alert('error : ' + error);
       return;
     }
   });
+  saved_text = editor.getValue();
 }
-
+/**
+ * save new file
+ */
 function saveNewFile() {
   var win = browserWindow.getFocusedWindow();
   dialog.showSaveDialog(
@@ -154,15 +186,37 @@ function saveNewFile() {
     // セーブ用ダイアログが閉じられた後のコールバック関数
     function(fileName) {
       if (fileName) {
-        var data = editor.getValue();
-        currentPath = fileName;
-        writeFile(currentPath, data);
+        var text = editor.getValue();
+        filePath = fileName;
+        writeFile(filePath, text);
       }
     }
   );
 }
 
+/**
+ * close file
+ */
 function closeFile() {
-  footerArea.text(null);
-  editor.setValue(null);
+  if (editor.getValue() !== saved_text) {
+    if (confirm('変更が保存されていません。\n保存しますか？')) {
+      saveFile();
+    } else {
+      if (confirm('変更を保存せずにファイルを閉じますか？')) {
+        initFileInfo();
+      }
+    }
+  } else {
+    initFileInfo();
+  }
+}
+
+/**
+ * init file info
+ */
+function initFileInfo() {
+  filePath   = '';
+  saved_text = '';
+  editor.setValue('');
+  footerArea.text('');
 }
