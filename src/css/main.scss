@@ -1,3 +1,8 @@
+@mixin max-hei-wid {
+  height: 100%;
+  width: 100%;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -5,10 +10,9 @@
 
 html,
 body {
+  @include max-hei-wid;
   background-color: #1e1e1e;
   overflow: hidden;
-  height: 100%;
-  width: 100%;
 }
 
 #input_area {
@@ -17,9 +21,8 @@ body {
 }
 
 #input_txt {
+  @include max-hei-wid;
   float: left;
-  height: 100%;
-  width: 100%;
 }
 
 .w50 {
@@ -34,10 +37,10 @@ body {
   height: 100%;
   width: 50%;
   word-wrap: break-word;
-}
 
-#preview_area ul, ol {
-  padding-left: 15px;
+  ul, ol {
+    padding-left: 15px;
+  }
 }
 
 #footer {
