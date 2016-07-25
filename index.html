@@ -6,7 +6,7 @@
   <link href="src/css/vendor/boostrap/bootstrap.min.css" rel="stylesheet">
   <link href="dest/css/main.css" rel="stylesheet">
 </head>
-<body onload="onLoad()">
+<body>
   <div id="input_area">
     <div id="input_txt" class="w50"></div>
     <div id="preview_area"><span v-html="input | marked"></span></div>
@@ -19,7 +19,7 @@
   <script src="src/js/vendor/ace/ace.js"></script>
   <script src="src/js/vendor/ace/mode/mode-markdown.js"></script>
   <script src="src/js/vendor/ace/theme/theme-twilight.js"></script>
-  <script src="src/js/editor.js"></script>
+  <script src="dest/js/editor.js"></script>
   <script src="src/js/vendor/ace/mode/mode-javascript.js"></script>
 
   <!-- for livereload -->
