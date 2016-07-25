@@ -157,6 +157,7 @@ saveNewFile = ->
         text      = _editor.getValue()
         _filePath = fileName
         writeFile _filePath, text
+        _$footerFilePath.text _filePath
   )
 
 # check unsaved file status
