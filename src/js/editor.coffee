@@ -30,6 +30,8 @@ $ ->
 
   # Initialize editor
   _editor = settingEditor()
+  # focus textarea
+  $('textarea')[0].focus()
 
   # documentにドラッグ&ドロップされた場合
   document.ondragover = document.ondrop = (e) ->
