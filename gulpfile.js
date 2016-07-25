@@ -1,4 +1,5 @@
 var gulp     = require('gulp');
+var coffee   = require('gulp-coffee');
 var uglify   = require("gulp-uglify");
 var sass     = require('gulp-sass');
 var plumber  = require('gulp-plumber');
@@ -14,16 +15,17 @@ gulp.task('default', function() {
   gulp.watch(['index.html', 'dest/**/*'],
     electron.reload);
 
-  gulp.watch('src/js/*.js',
-    ['uglify']);
+  gulp.watch('src/js/*.coffee',
+    ['coffee']);
 
   gulp.watch('src/css/*.scss',
     ['sass']);
 });
 
-gulp.task('uglify', function() {
-  gulp.src('src/js/*.js')
+gulp.task('coffee', function() {
+  gulp.src('src/js/*.coffee')
     .pipe(plumber())
+    .pipe(coffee())
     .pipe(uglify())
     .pipe(gulp.dest('dest/js/'));
 });
