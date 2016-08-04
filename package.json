@@ -1,6 +1,6 @@
 {
   "name": "markdonald",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "simple markdown editor",
   "main": "main.js",
   "scripts": {
