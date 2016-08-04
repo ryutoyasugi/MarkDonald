@@ -4,6 +4,8 @@
 
 simple markdown editor
 
+![screenshot](src/img/screenshot.png)
+
 ## Setting
 
 ```sh
