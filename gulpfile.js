@@ -5,7 +5,7 @@ var sass     = require('gulp-sass');
 var plumber  = require('gulp-plumber');
 var electron = require('electron-connect').server.create();
 
-gulp.task('default', function() {
+gulp.task('default', ['coffee', 'sass'], function() {
 
   electron.start();
 
