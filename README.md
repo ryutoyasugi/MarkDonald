@@ -1,6 +1,6 @@
 # MarkDonald
 
-[![Build Status](https://travis-ci.org/ryutoyasugi/MarkDonald.svg?branch=feature%2FTravisCI)](https://travis-ci.org/ryutoyasugi/MarkDonald)
+[![Build Status](https://travis-ci.org/ryutoyasugi/MarkDonald.svg?branch=master)](https://travis-ci.org/ryutoyasugi/MarkDonald)
 
 simple markdown editor
 
