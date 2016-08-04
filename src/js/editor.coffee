@@ -12,7 +12,10 @@ _$unsavedIcon     = null
 _editor           = null
 _filePath         = ''
 _savedText        = ''
-_EXTENSIONS       = ['txt', 'html', 'js', 'md']
+_EXTENSIONS       = ['txt',
+                     'html',
+                     'js',
+                     'md']
 
 # using markdown preview
 viewModel = new Vue
