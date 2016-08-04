@@ -8,7 +8,7 @@ packager({
   'app-version': config.version,
   platform     : 'darwin', // or win
   arch         : 'x64',
-  icon         : './MarkDonald.icns',
+  icon         : 'src/img/MarkDonald.icns',
   version      : '1.2.6', // electron version
   overwrite    : true
 }, function done(err, path) {

@@ -12,7 +12,10 @@ _$unsavedIcon     = null
 _editor           = null
 _filePath         = ''
 _savedText        = ''
-_EXTENSIONS       = ['txt', 'html', 'js', 'md']
+_EXTENSIONS       = ['txt',
+                     'html',
+                     'js',
+                     'md']
 
 # using markdown preview
 viewModel = new Vue
@@ -30,6 +33,8 @@ $ ->
 
   # Initialize editor
   _editor = settingEditor()
+  # focus textarea
+  $('textarea')[0].focus()
 
   # documentにドラッグ&ドロップされた場合
   document.ondragover = document.ondrop = (e) ->
