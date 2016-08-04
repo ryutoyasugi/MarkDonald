@@ -1,6 +1,8 @@
 language: node_js
 node_js:
-  - 6.1
-
+- 6.1
 script:
-  - npm run build
+- npm run build
+notifications:
+  slack:
+    secure: N5PevT7kT/07kd295U2pDeZ+UkBy1BEoLFGf0Cce6WDL1sPu3lFtaiW5Vh7+OuZptt38SuXyAznrIgUKKs3hmxmEaWW5sP//dS+PA9DqHxlqz/lc0VgnorBTQVmUau3iRxvoVHOjwn/EFcBaS7bLHWn1cq24zmKVTsqbcdtBy4WLALdxOKjrTBPRmAsuWfd/yzmbJeKngC01+NNJOIffMhK7x3KRFKx5LKM9c+fcTWtkLwtQxa/b5YBhkJi41NaCTnmP2F8mekpEMmJsmS9NtZH6i+Q7FHsetYjTEOnR0+kukWUX1Fcy/AupnOVGQ1+nW44C4gPkyVjI3jwwDkc0+W/fT7OXwZ9jdDJUhmGLI0CqJNDBmBVRhHj9L7U98kfm19X7Ww5ctFiMeOF03gieTsCRMnUajaR/+MtDhGYXDAa7XTVZE+BogtpZCxszKzIc05Hb3DEr5gpGANlbzcGL1LQWKN+GWo9DGBI6zhYUiehrddxrrv51oQ807pI7jqa5IfNK+veqfGrptj1lDvLZ0SwKwf+P6JzgGvVqOfSGXnj2V1wRCxNxB2EhbmXziRGwaa8VojICQ4GxzrHJaa736whN5bTAktGSJ33bFy5r5StLUPeeDrKSHndZV8aq6RhiTs//wHC8ZLXAsasFPUp5enco8XVsELeV9FZvXgqHJ58=
